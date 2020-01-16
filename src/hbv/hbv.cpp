@@ -31,17 +31,19 @@ void HBitVector::insert(int n) {
 
 // Remove an element from the set
 void HBitVector::remove(int n) {
-  int level = this->levels;
   int bit = n + this->size;
-  int sibling = this->sibling(bit);
-  while (level >= 0) {
-    this->set[bit] = 0;
-    if (this->set[sibling]) {
-      break;
-    } else {
-      bit = this->parent(bit);
-      sibling = this->sibling(bit);
-      --level;
+  if (this->set[bit]) { // bit exists
+    int level = this->levels;
+    int sibling = this->sibling(bit);
+    while (level >= 0) {
+      this->set[bit] = 0;
+      if (this->set[sibling]) {
+        break;
+      } else {
+        bit = this->parent(bit);
+        sibling = this->sibling(bit);
+        --level;
+      }
     }
   }
 }
@@ -96,6 +98,7 @@ int HBitVector::sibling(int n) {
   if (n % 2) {
     return n + 1;
   } else {
-    return n - 1;
+    if (n) return n - 1;
+    else return 0;
   }
 }
