@@ -71,7 +71,7 @@ int HBitVector::succ(int n) {
     bit = this->set[n];
   }
   if (n >= this->size) {
-    return n;
+    return n - this->size;
   } else if (x < n) {
     return this->min(n);
   } else {
