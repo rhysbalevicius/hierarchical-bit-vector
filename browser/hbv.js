@@ -64,6 +64,15 @@ class HierarchicalBitVector {
     }
   }
 
+  deletes(iterable) {
+    if (typeof Symbol.iterator !== 'undefined' &&
+        typeof iterable[Symbol.iterator] === 'function') {
+      for (const n of iterable) this.delete(n);
+    } else {
+      throw new Error(`${iterable} not iterable`);
+    }
+  }
+
   // Find the smallest element in the set rooted at node n
   min(n = 0) {
     if (this.vector[n]) {
@@ -92,6 +101,7 @@ class HierarchicalBitVector {
   // Find the smallest element in the set that is greater than n
   succ(n) {
     if (0 <= n && n <= this.N) {
+      if (!this.vector[0]) return -1; // empty set
       let x = n;
       let bit;
       n += this.N;

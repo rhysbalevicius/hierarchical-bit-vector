@@ -63,6 +63,7 @@ int HBitVector::min(int n = 0) {
 
 // Find the smallest element in the set that is greater than n
 int HBitVector::succ(int n) {
+  if (!this->set[0]) return -1; // empty set
   int x = n;
   int bit = 0;
   n += this->size;
