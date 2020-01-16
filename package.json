@@ -1,0 +1,32 @@
+{
+  "name": "hierarchical-bit-vector",
+  "version": "1.0.0",
+  "description": "A hierarchical bit vector container",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r-ba/hierarchical-bit-vector.git"
+  },
+  "author": {
+    "name": "Rhys Balevicius",
+    "email": "rhysbalevicius@gmail.com",
+    "url": "https://github.com/r-ba"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean",
+    "test": "mocha",
+    "ci": "run-s build test"
+  },
+  "devDependencies": {
+    "chai": "4.0.2",
+    "mocha": "^6.2.2",
+    "node-gyp": "^5.0.7",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "node-addon-api": "^2.0.0"
+  }
+}
