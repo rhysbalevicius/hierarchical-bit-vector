@@ -112,7 +112,7 @@ class HierarchicalBitVector {
       if (n >= this.N) {
         return n - this.N;
       } else {
-        return x < n-1 ? this.min(n) : -1;
+        return x < n ? this.min(n) : -1;
       }
     } else {
       outOfBoundsError(n);
