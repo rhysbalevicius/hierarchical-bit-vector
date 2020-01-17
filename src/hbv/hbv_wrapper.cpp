@@ -9,6 +9,8 @@ Napi::Object HBitVectorWrapper::Init(Napi::Env env, Napi::Object exports) {
     InstanceMethod("contains", &HBitVectorWrapper::Contains),
     InstanceMethod("insert", &HBitVectorWrapper::Insert),
     InstanceMethod("delete", &HBitVectorWrapper::Delete),
+    InstanceMethod("inserts", &HBitVectorWrapper::Inserts),
+    InstanceMethod("deletes", &HBitVectorWrapper::Deletes),
     InstanceMethod("min", &HBitVectorWrapper::Min),
     InstanceMethod("succ", &HBitVectorWrapper::Succ)
   });
@@ -19,6 +21,7 @@ Napi::Object HBitVectorWrapper::Init(Napi::Env env, Napi::Object exports) {
   exports.Set("create", func);
   return exports;
 }
+
 
 HBitVectorWrapper::HBitVectorWrapper(const Napi::CallbackInfo& info) : Napi::ObjectWrap<HBitVectorWrapper>(info) {
   Napi::Env env = info.Env();
@@ -35,6 +38,7 @@ HBitVectorWrapper::HBitVectorWrapper(const Napi::CallbackInfo& info) : Napi::Obj
   }
 }
 
+
 Napi::Value HBitVectorWrapper::Contains(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
@@ -48,6 +52,7 @@ Napi::Value HBitVectorWrapper::Contains(const Napi::CallbackInfo& info) {
 
   return Napi::Number::New(info.Env(), returnVal);
 }
+
 
 Napi::Value HBitVectorWrapper::Min(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
@@ -66,6 +71,7 @@ Napi::Value HBitVectorWrapper::Min(const Napi::CallbackInfo& info) {
   return Napi::Number::New(info.Env(), returnVal);
 }
 
+
 Napi::Value HBitVectorWrapper::Succ(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
@@ -80,6 +86,7 @@ Napi::Value HBitVectorWrapper::Succ(const Napi::CallbackInfo& info) {
   return Napi::Number::New(info.Env(), returnVal);
 }
 
+
 void HBitVectorWrapper::Insert(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
@@ -92,6 +99,7 @@ void HBitVectorWrapper::Insert(const Napi::CallbackInfo& info) {
   this->hbv_->insert(inputVal.Int32Value());
 }
 
+
 void HBitVectorWrapper::Delete(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
@@ -103,6 +111,51 @@ void HBitVectorWrapper::Delete(const Napi::CallbackInfo& info) {
   Napi::Number inputVal = info[0].As<Napi::Number>();
   this->hbv_->remove(inputVal.Int32Value());
 }
+
+
+void HBitVectorWrapper::Inserts(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::HandleScope scope(env);
+
+  if (info.Length() != 1) {
+    Napi::TypeError::New(env, "Exactly one argument is expected").ThrowAsJavaScriptException();
+  }
+
+  Napi::Array inputArr = info[0].As<Napi::Array>();
+
+  for (uint32_t i=0; i<inputArr.Length(); i++) {
+    Napi::Value inputVal = inputArr[i];
+    if (inputVal.IsNumber()) {
+      int v = (int) inputVal.As<Napi::Number>();
+      this->hbv_->insert(v);
+    } else {
+      Napi::TypeError::New(env, "Unexpected type in array").ThrowAsJavaScriptException();
+    }
+  }
+}
+
+
+void HBitVectorWrapper::Deletes(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::HandleScope scope(env);
+
+  if (info.Length() != 1) {
+    Napi::TypeError::New(env, "Exactly one argument is expected").ThrowAsJavaScriptException();
+  }
+
+  Napi::Array inputArr = info[0].As<Napi::Array>();
+
+  for (uint32_t i=0; i<inputArr.Length(); i++) {
+    Napi::Value inputVal = inputArr[i];
+    if (inputVal.IsNumber()) {
+      int v = (int) inputVal.As<Napi::Number>();
+      this->hbv_->remove(v);
+    } else {
+      Napi::TypeError::New(env, "Unexpected type in array").ThrowAsJavaScriptException();
+    }
+  }
+}
+
 
 HBitVector* HBitVectorWrapper::GetInternalInstance() {
   return this->hbv_;

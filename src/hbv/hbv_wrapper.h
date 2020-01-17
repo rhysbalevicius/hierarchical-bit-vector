@@ -14,5 +14,7 @@ class HBitVectorWrapper : public Napi::ObjectWrap<HBitVectorWrapper> {
   Napi::Value Succ(const Napi::CallbackInfo& info);
   void Insert(const Napi::CallbackInfo& info);
   void Delete(const Napi::CallbackInfo& info);
+  void Inserts(const Napi::CallbackInfo& info);
+  void Deletes(const Napi::CallbackInfo& info);
   HBitVector *hbv_;
 };
