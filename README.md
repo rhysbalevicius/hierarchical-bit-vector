@@ -16,10 +16,10 @@ Install dependencies and build the project with `npm run install`.
 ## Example usage
 
 ```js
-const hierarchicalBitVector = require('./index.js');
+const HierarchicalBitVector = require('./index.js');
 
 // create a new HBV representing integers in the range [0 ... (2^30 - 1)]
-const set = new hierarchicalBitVector.create();
+const set = new HierarchicalBitVector.create();
 
 // adding elements to the set
 set.insert(561);
@@ -28,6 +28,12 @@ set.insert(1729);
 
 // removing an element from the set
 set.delete(561);
+
+// adding multiple elements to the set
+set.inserts([1105, 1729]);
+
+// remove multiple elements from the set
+set.deletes([1105, 1729]);
 
 // check if an element exists within the set
 console.log(set.contains(42));   // -> 0
@@ -43,25 +49,14 @@ console.log(set.succ(1105));  // -> 1729
 console.log(set.succ(1729));  // -> -1
 ```
 
-A [pure JavaScript implementation]((https://github.com/r-ba/hierarchical-bit-vector/blob/master/browser/hbv.js)) has also been provided so that an HBV may be consumed within a browser. The API is nearly identical:
+An [ES6 implementation](https://github.com/r-ba/hierarchical-bit-vector/blob/master/browser/hbv.js) has also been provided so that HBVs may be consumed by modern browsers. The API is nearly identical:
+
 ```js
 // create a new HBV representing integers in the range [0 ... (2^15 - 1)]
 const set = new HierarchicalBitVector(16);
 
 // access the entire data structures internal values
 console.log(set.vector);
-
-// add a single element to the set
-set.insert(561);
-
-// adding multiple elements to the set
-set.inserts([1105, 1729]);
-
-// remove a single element from the set
-set.delete(561);
-
-// remove multiple elements from the set
-set.deletes([1105, 1729]);
 
 // etc ...
 ```
