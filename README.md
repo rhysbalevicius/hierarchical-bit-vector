@@ -5,7 +5,7 @@
 
 A hierarchical bit vector (HBV) C++ addon for node.js.
 
-An HBV is a data structure for storing sets of integers where the largest possible element is known a priori. For sparse sets, eumerating the elements of an HBV is more performant than that of a standard bit vector.
+An HBV is a data structure for storing sets of integers where the largest possible element is known a priori. For sparse sets, enumerating the elements of an HBV is more performant than that of a standard bit vector.
 
 For a more detailed look at HBVs, see the paper written by [Glenn & Blinkley](https://pdfs.semanticscholar.org/1137/5bc624d5b2a8cd5444e01dac8a836ed2ebde.pdf).
 
@@ -21,19 +21,17 @@ const HierarchicalBitVector = require('./index.js');
 // create a new HBV representing integers in the range [0 ... (2^30 - 1)]
 const set = new HierarchicalBitVector.create();
 
-// adding elements to the set
+// add an element to the set
 set.insert(561);
-set.insert(1105);
-set.insert(1729);
 
-// removing an element from the set
+// remove an element from the set
 set.delete(561);
 
-// adding multiple elements to the set
-set.inserts([1105, 1729]);
+// add multiple elements to the set
+set.inserts([1105, 1729, 2465, 2821]);
 
 // remove multiple elements from the set
-set.deletes([1105, 1729]);
+set.deletes([2465, 2821]);
 
 // check if an element exists within the set
 console.log(set.contains(42));   // -> 0
