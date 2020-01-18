@@ -9,7 +9,7 @@ class HierarchicalBitVector {
   // Determine if an integer is in the set
   contains(n) {
     if (0 <= n && n <= this.N) {
-      return this.vector[this.N + n] > 0;
+      return this.vector[this.N + n];
     } else {
       outOfBoundsError(n);
     }
