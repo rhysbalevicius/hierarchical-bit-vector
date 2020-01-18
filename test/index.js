@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const HBV_CPP = require('../index.js');
 const HBV_JS = require('../browser/hbv.js');
 
-const getBitSet = hbv => Array.apply(null, Array(8)).map((i,j) => hbv.contains(j) ? 1 : 0);
+const getBitSet = hbv => Array.apply(null, Array(8)).map((i,j) => hbv.contains(j));
 const getSuccSet = hbv => Array.apply(null, Array(8)).map((i,j) => hbv.succ(j));
 
 const testImplementation = (language, createObject) => {
@@ -37,14 +37,14 @@ const testImplementation = (language, createObject) => {
     it('inserts(): insert array of non-extant values', function() {
       const set = new hbv(4);
       set.inserts([2,3,6]);
-      const bitset = getBitSet(set).map(bool => bool ? 1 : 0);
+      const bitset = getBitSet(set);
       expect(bitset).to.deep.equal( [ 0, 0, 1, 1, 0, 0, 1, 0 ] );
     });
 
     it('inserts(): insert array of extant values', function() {
       const set = new hbv(4);
       set.inserts([2,2,2]);
-      const bitset = getBitSet(set).map(bool => bool ? 1 : 0);
+      const bitset = getBitSet(set);
       expect(bitset).to.deep.equal( [ 0, 0, 1, 0, 0, 0, 0, 0 ] );
     });
 
@@ -68,7 +68,7 @@ const testImplementation = (language, createObject) => {
     it('deletes(): delete array of non-extant values', function() {
       const set = new hbv(4);
       set.deletes([2,3,4]);
-      const bitset = getBitSet(set).map(bool => bool ? 1 : 0);
+      const bitset = getBitSet(set);
       expect(bitset).to.deep.equal( [ 0, 0, 0, 0, 0, 0, 0, 0 ] );
     });
 
@@ -76,7 +76,7 @@ const testImplementation = (language, createObject) => {
       const set = new hbv(4);
       set.inserts([2,3,4]);
       set.deletes([2,3,4]);
-      const bitset = getBitSet(set).map(bool => bool ? 1 : 0);
+      const bitset = getBitSet(set);
       expect(bitset).to.deep.equal( [ 0, 0, 0, 0, 0, 0, 0, 0 ] );
     });
 
@@ -103,7 +103,7 @@ const testImplementation = (language, createObject) => {
       const set = new hbv(4);
       set.insert(2);
       set.insert(6);
-      const bitSucc = getSuccSet(set)
+      const bitSucc = getSuccSet(set);
       expect(bitSucc).to.deep.equal([ 2, 2, 6, 6, 6, 6, -1, -1 ]);
     });
 
