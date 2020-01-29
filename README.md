@@ -3,11 +3,11 @@
 [![master branch tests](https://img.shields.io/travis/r-ba/hierarchical-bit-vector/master.svg?label=master%20branch)](https://travis-ci.com/r-ba/hierarchical-bit-vector)
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/r-ba/hierarchical-bit-vector/master/LICENSE)
 
-A hierarchical bit vector (HBV) C++ addon for node.js.
+A hierarchical bit vector (HBV) C++ addon for Node.js.
 
 An HBV is a data structure for storing sets of integers where the largest possible element is known a priori. For sparse sets, enumerating the elements of an HBV is more performant than that of a standard bit vector.
 
-For a more detailed look at HBVs, see the paper written by [Glenn & Blinkley](https://pdfs.semanticscholar.org/1137/5bc624d5b2a8cd5444e01dac8a836ed2ebde.pdf).
+For a more detailed look at HBVs, see the paper written by [Glenn & Binkley](https://pdfs.semanticscholar.org/1137/5bc624d5b2a8cd5444e01dac8a836ed2ebde.pdf).
 
 ## Build instructions
 
